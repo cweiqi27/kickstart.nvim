@@ -119,14 +119,17 @@ require('lazy').setup({
     },
   },
 
+  -- Theme
   {
-    -- Theme inspired by Atom
-    'navarasu/onedark.nvim',
-    priority = 1000,
+    "catppuccin/nvim",
+    name = "catppuccin",
+
     config = function()
-      vim.cmd.colorscheme 'onedark'
+      vim.cmd.colorscheme 'catppuccin-mocha'
     end,
+
   },
+
 
   {
     -- Set lualine as statusline
@@ -134,8 +137,8 @@ require('lazy').setup({
     -- See `:help lualine.txt`
     opts = {
       options = {
-        icons_enabled = false,
-        theme = 'onedark',
+        icons_enabled = true,
+        theme = 'palenight',
         component_separators = '|',
         section_separators = '',
       },
@@ -149,6 +152,8 @@ require('lazy').setup({
     -- See `:help indent_blankline.txt`
     opts = {
       char = '┊',
+      show_current_context = true,
+      show_current_context_start = true,
       show_trailing_blankline_indent = false,
     },
   },
@@ -157,7 +162,7 @@ require('lazy').setup({
   { 'numToStr/Comment.nvim',         opts = {} },
 
   -- Fuzzy Finder (files, lsp, etc)
-  { 'nvim-telescope/telescope.nvim', branch  = '0.1.x', dependencies = { 'nvim-lua/plenary.nvim' } },
+  { 'nvim-telescope/telescope.nvim', branch = '0.1.x', dependencies = { 'nvim-lua/plenary.nvim' } },
 
   -- Fuzzy Finder Algorithm which requires local dependencies to be built.
   -- Only load if `make` is available. Make sure you have the system
@@ -184,8 +189,8 @@ require('lazy').setup({
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.
   --       Uncomment any of the lines below to enable them.
-  -- require 'kickstart.plugins.autoformat',
-  -- require 'kickstart.plugins.debug',
+  require 'kickstart.plugins.autoformat',
+  require 'kickstart.plugins.debug',
 
   -- NOTE: The import below automatically adds your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --    You can use this folder to prevent any conflicts with this init.lua if you're interested in keeping
@@ -201,8 +206,14 @@ require('lazy').setup({
 -- [[ Setting options ]]
 -- See `:help vim.o`
 
+-- Set relative line numbers and colors
+vim.opt.relativenumber = true
+vim.api.nvim_set_hl(0, 'LineNrAbove', { fg = '#7f849c' })
+vim.api.nvim_set_hl(0, 'LineNr', { fg = '#f5e0dc', bold = true, italic = true })
+vim.api.nvim_set_hl(0, 'LineNrBelow', { fg = '#7f849c' })
+
 -- Set highlight on search
-vim.o.hlsearch = false
+vim.o.hlsearch = true
 
 -- Make line numbers default
 vim.wo.number = true
