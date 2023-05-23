@@ -6,7 +6,7 @@
 return {
   {
     "jose-elias-alvarez/null-ls.nvim",
-    setup = function()
+    config = function()
       local null_ls = require("null-ls")
 
       local sources = {
@@ -29,18 +29,15 @@ return {
               buffer = bufnr,
               callback = function()
                 -- on 0.8, you should use vim.lsp.buf.format({ bufnr = bufnr }) instead
-                vim.lsp.buf.formatting_sync()
+                vim.lsp.buf.format({ bufnr = bufnr })
               end,
             })
           end
         end,
-
       })
     end,
-    config = {
-      requires = {
-        "nvim-lua/plenary.nvim",
-      },
+    dependencies = {
+      "nvim-lua/plenary.nvim",
     },
   },
   { "elkowar/yuck.vim",            enabled = true },
@@ -48,44 +45,44 @@ return {
   { "nvim-tree/nvim-web-devicons", enabled = true },
   { "nvim-lua/plenary.nvim",       enabled = true },
   {
-    "nvim-neo-tree/neo-tree.nvim",
-    branch = "v2.x",
-    requires = {
-      "nvim-lua/plenary.nvim",
-      "nvim-tree/nvim-web-devicons",
-      "MunifTanjim/nui.nvim",
-    },
-    opts = {
-      filesystem = {
-        filtered_items = {
-          visible = true,
-          show_hidden_count = true,
-          hide_dotfiles = false,
-          hide_gitignored = false,
-          hide_by_name = {
-            '.git',
-          },
-          never_show = {},
-        },
-      }
-    }
-  },
-  {
     "edluffy/hologram.nvim",
     enabled = true,
     opts = {
       auto_display = true
     }
   },
+  -- { "windwp/nvim-autopairs",
+  --     config = function() require("nvim-autopairs").setup {} end
+  -- },
   {
-    's1n7ax/nvim-window-picker',
-    config = function()
-      require 'window-picker'.setup()
-      vim.keymap.set("n", "<leader>W", function()
-        local picked_window_id = vim.api.nvim_get_current_win()
-        vim.api.nvim_set_current_win(picked_window_id)
-      end, { desc = "Pick a window" })
-    end,
-  }
+    'andweeb/presence.nvim',
+    enabled = true,
+    opts = {
+      enable_line_number = true,
+      buttons = false
+    }
+  },
+  {
+    'akinsho/bufferline.nvim',
+    version = "*",
+    requires = 'nvim-tree/nvim-web-devicons',
+    opts = {
 
+    }
+  },
+  {
+    "nvim-telescope/telescope-file-browser.nvim",
+    dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }
+  },
+  {
+    "kylechui/nvim-surround",
+    version = "*",
+    event = "VeryLazy",
+    config = function()
+      require("nvim-surround").setup({
+      })
+    end
+  },
+  { 'mg979/vim-visual-multi' },
+  { 'ap/vim-css-color' },
 }
