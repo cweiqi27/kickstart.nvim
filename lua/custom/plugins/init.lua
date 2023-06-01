@@ -12,7 +12,7 @@ return {
       local sources = {
         null_ls.builtins.diagnostics.eslint,
         null_ls.builtins.formatting.prettier.with({
-          filetypes = { "html", "json", "yaml", "markdown", "typescriptreact", "typescript" },
+          extra_filetypes = {"php", "blade.php"}
         }),
         null_ls.builtins.code_actions.gitsigns,
       }
@@ -63,14 +63,6 @@ return {
     }
   },
   {
-    'akinsho/bufferline.nvim',
-    version = "*",
-    requires = 'nvim-tree/nvim-web-devicons',
-    opts = {
-
-    }
-  },
-  {
     "nvim-telescope/telescope-file-browser.nvim",
     dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }
   },
@@ -85,4 +77,5 @@ return {
   },
   { 'mg979/vim-visual-multi' },
   { 'ap/vim-css-color' },
+  { 'gpanders/nvim-parinfer' }
 }
