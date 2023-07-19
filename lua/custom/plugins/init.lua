@@ -10,9 +10,8 @@ return {
       local null_ls = require("null-ls")
 
       local sources = {
-        null_ls.builtins.diagnostics.eslint,
         null_ls.builtins.formatting.prettier.with({
-          extra_filetypes = {"php", "blade.php"}
+          extra_filetypes = { "php", "blade.php" }
         }),
         null_ls.builtins.code_actions.gitsigns,
       }
@@ -51,14 +50,13 @@ return {
       auto_display = true
     }
   },
-  -- { "windwp/nvim-autopairs",
-  --     config = function() require("nvim-autopairs").setup {} end
-  -- },
   {
     'andweeb/presence.nvim',
     enabled = true,
     opts = {
       enable_line_number = true,
+      neovim_image_text = "sussybaka",
+      main_image = "file",
       buttons = false
     }
   },
@@ -77,5 +75,90 @@ return {
   },
   { 'mg979/vim-visual-multi' },
   { 'ap/vim-css-color' },
-  { 'gpanders/nvim-parinfer' }
+  { 'gpanders/nvim-parinfer' },
+  {
+    'glepnir/dashboard-nvim',
+    event = 'VimEnter',
+    config = function()
+      require('dashboard').setup {
+        theme = 'doom',
+        change_to_vcs_root = true,
+        config = {
+          header = {
+            [[                                                                       ]],
+            [[                                                                       ]],
+            [[                                                                       ]],
+            [[  ██████   █████                   █████   █████  ███                  ]],
+            [[ ░░██████ ░░███                   ░░███   ░░███  ░░░                   ]],
+            [[  ░███░███ ░███   ██████   ██████  ░███    ░███  ████  █████████████   ]],
+            [[  ░███░░███░███  ███░░███ ███░░███ ░███    ░███ ░░███ ░░███░░███░░███  ]],
+            [[  ░███ ░░██████ ░███████ ░███ ░███ ░░███   ███   ░███  ░███ ░███ ░███  ]],
+            [[  ░███  ░░█████ ░███░░░  ░███ ░███  ░░░█████░    ░███  ░███ ░███ ░███  ]],
+            [[  █████  ░░█████░░██████ ░░██████     ░░███      █████ █████░███ █████ ]],
+            [[ ░░░░░    ░░░░░  ░░░░░░   ░░░░░░       ░░░      ░░░░░ ░░░░░ ░░░ ░░░░░  ]],
+            [[                                                                       ]],
+            "      |\\      _,,,---,,_            ",
+            "ZZZzz /,`.-'`'    -.  ;-;;,_        ",
+            "     |,4-  ) )-,_. ,\\ (  `'-'       ",
+            "    '---''(_/--'  `-'\\_)           ",
+            [[                                                                       ]],
+            [[                                                                       ]],
+            [[                                                                       ]],
+          },
+          center = {
+            {
+              icon = '󰥩  ',
+              desc = 'Find files',
+              key = 'f',
+              action = 'Telescope find_files'
+            },
+            {
+              icon = '  ',
+              desc = 'File browser',
+              key = 'b',
+              action = 'Telescope file_browser'
+            },
+            {
+              icon = '󰩈  ',
+              desc = 'Quit',
+              key = 'q',
+              action = 'q'
+            },
+          },
+          footer = { 'sussy baka' }
+        }
+      }
+    end,
+    dependencies = { { 'nvim-tree/nvim-web-devicons' } }
+  },
+  {
+    'mattn/emmet-vim',
+  },
+  {
+    'iamcco/markdown-preview.nvim',
+  },
+  {
+    'kkoomen/vim-doge'
+  },
+  {
+    "sindrets/diffview.nvim"
+  },
+  {
+    "nvim-neo-tree/neo-tree.nvim",
+    branch = "v3.x",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-tree/nvim-web-devicons",
+      "MunifTanjim/nui.nvim",
+    }
+  },
+
+  vim.api.nvim_set_keymap(
+    "n",
+    "<leader>n",
+    ":Neotree reveal=true toggle=true<CR>",
+    { noremap = true }
+  )
+  -- dir=%:p:h
+
 }

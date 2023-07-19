@@ -1,6 +1,6 @@
 --[[
 
-=====================================================================
+=f===================================================================
 ==================== READ THIS BEFORE CONTINUING ====================
 =====================================================================
 
@@ -84,7 +84,7 @@ require('lazy').setup({
 
       -- Useful status updates for LSP
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      { 'j-hui/fidget.nvim',       opts = {} },
+      -- { 'j-hui/fidget.nvim',       opts = {} },
 
       -- Additional lua configuration, makes nvim stuff amazing!
       'folke/neodev.nvim',
@@ -142,6 +142,23 @@ require('lazy').setup({
         theme = 'palenight',
         component_separators = '|',
         section_separators = '',
+        winbar = {
+          lualine_a = {},
+          lualine_b = {},
+          lualine_c = { 'filename' },
+          lualine_x = {},
+          lualine_y = {},
+          lualine_z = {}
+        },
+
+        inactive_winbar = {
+          lualine_a = {},
+          lualine_b = {},
+          lualine_c = { 'filename' },
+          lualine_x = {},
+          lualine_y = {},
+          lualine_z = {}
+        }
       },
     },
   },
@@ -194,7 +211,7 @@ require('lazy').setup({
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.
   --       Uncomment any of the lines below to enable them.
-  -- require 'kickstart.plugins.autoformat',
+  require 'kickstart.plugins.autoformat',
   require 'kickstart.plugins.debug',
 
   -- NOTE: The import below automatically adds your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
@@ -286,16 +303,24 @@ require('telescope').setup {
         ['<C-d>'] = false,
       },
     },
+    file_ignore_patterns = { "node%_modules/.*" }
   },
+  extensions = {
+    file_browser = {
+      path = "%:p:h",
+      hijack_netrw = true,
+    },
+    media_files = {}
+  }
 }
 
 -- Enable telescope-file-browser
 require("telescope").load_extension "file_browser"
 
--- Telescope shortcut
+-- File browser shortcut
 vim.api.nvim_set_keymap(
   "n",
-  "<space>fb",
+  "<leader>fb",
   "<cmd>lua require 'telescope'.extensions.file_browser.file_browser()<CR>",
   { noremap = true }
 )
@@ -458,6 +483,7 @@ local servers = {
   -- pyright = {},
   -- rust_analyzer = {},
   -- tsserver = {},
+  volar = {},
 
   lua_ls = {
     Lua = {
@@ -487,6 +513,16 @@ mason_lspconfig.setup_handlers {
       capabilities = capabilities,
       on_attach = on_attach,
       settings = servers[server_name],
+    }
+  end,
+  ["volar"] = function()
+    require('lspconfig').volar.setup {
+      init_options = {
+        typescript = {
+          tsdk = '/home/person/.nvm/versions/node/v18.16.0/lib/node_modules/typescript'
+        }
+      },
+      filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue', 'json' },
     }
   end,
 }
